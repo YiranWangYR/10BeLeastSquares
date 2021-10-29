@@ -4,9 +4,11 @@ Detailed description of the codes can be found in Wang and Oskin, Combined linea
 
 These codes can be ran in matlab. 
 
-Be10_LS_rate: the code to estimate surface age with known erosion rate
-Be10_LS_thickness: the code to estimate surface age with known eroded thickness. This code runs together with the function "Be10Newton", so the two files should be placed in the same folder.
-Be10Newton: the function that runs Newton's method. Runs together with "Be10_LS_thickness".
+To estimate surface age with known erosion rate, run "Be10_LS_rate.m"
+To estimate surface age with known eroded thickness, run "Be10_LS_thickness.m", this code runs together with the function "Be10Newton", so the two files should be placed in the same folder.
+Notice that both approaches assume constant erosion.
+
+If there is no surface erosion, both "Be10_LS_rate.m" and "Be10_LS_thickness.m" works the same.
 
 We do not exclude negative inheritance, in order to aquire the full distribution of the exposure age (See detailed discussion in Wang and Oskin 202x). 
 
