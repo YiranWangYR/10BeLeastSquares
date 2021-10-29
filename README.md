@@ -10,4 +10,4 @@ Be10Newton: the function that runs Newton's method. Runs together with "Be10_LS_
 
 We do not exclude negative inheritance, in order to aquire the full distribution of the exposure age (See detailed discussion in Wang and Oskin 202x). 
 
-These codes were written with a old matlab version (2014), therefore some lines of the codes maybe simplified if using a newer matlab version.
+These codes were written with an old matlab version (2014), therefore some lines of the codes maybe simplified if using a newer version.
