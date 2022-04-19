@@ -1,11 +1,12 @@
+% version 1.0
 % Code to apply a least squares method exposure age estimation from
 % cosmogenic nuclide depth-profiles. Detailed explaination can be find in:
 % Wang and Oskin (202x)
-% This code estimate age with erosion rate r, muogenic production ignored.
+% This code estimate age with erosion/denudation rate r, muogenic production ignored.
 % A Monte Carlo simulation is applied to find the distribution of age and
 % inheritance. Erosion rate can be set to zero.
 
-
+% If you encounter any problem, please contact: yrwwang@ucdavis.edu
 
 clear all;
 
@@ -23,7 +24,7 @@ P0m2R=[0.13,0,1]; %surface production rate for fast muons, atoms/(g*yr)
 densityR=[2,0.2,1]; %g/cm3, sediment density
 LanR=[160,0,1]; % nucleon spallation attenuation length; g/cm2
 Lam1R=[1500,0,1]; %negative muon attenuation length; g/cm2
-Lam2R=[5300,0,1]; %fast muon attenuation length
+Lam2R=[4300,0,1]; %fast muon attenuation length
 rateR=[0.0003, 0.00005, 1]; % cm, erosion rate. No erosion when the first and second terms ==0
 % When there is no erosion, this code returns results with muogenic
 % production fully incorperated, and no approximation. (Eq.3-5 of Wang and Oskin (202x)
@@ -32,10 +33,11 @@ rateR=[0.0003, 0.00005, 1]; % cm, erosion rate. No erosion when the first and se
 % load sample data. Change the file name accordingly
 D1=load('../Be10 code/data/T2_Fin.txt');
 % Data format:
-% 1st column: sample depth
-% 2nd column: standard deviation of sample depth
+% 1st column: sample depth, cm
+% 2nd column: standard deviation of sample depth, cm
 % 3rd column: sample concentration, atoms/g
-% 4th column: standard deviation of C1
+% 4th column: standard deviation of C, atoms/g (!!!put in actual value here, 
+% do not use the percentage format)
 
 % distribution type of samples
 z_dis=1;    %distribution type of sample depth. 1=normal distribution; 0=uniform distribution
@@ -60,6 +62,12 @@ y_sd=D1(:,4); % standard deviation of C1
 
 N=length(y_mean);  % number of samples
 
+
+%============Stope if sd of C is in percentage format===========
+if y_sd(1)<1
+    fprintf('Please use actual value of the standard deviation of concentration. Do not use the percentage format.');
+    return;
+end
 
 %-------------Sampling data (Monte Carlo)--------------
 %P0n
@@ -212,12 +220,16 @@ De_ci=prctile(De,[2.5 97.5]);
 
 %==============display============
 fprintf('Exposure age (kyr) \n');
-fprintf('95CI: [%.3f, %.3f] \n', round(t_ci(1,1),3), round(t_ci(1,2),3));
-fprintf('68CI: [%.3f, %.3f] \n', round(t_ci(2,1),3), round(t_ci(2,2),3));
+fprintf('2-sigma CI: [%.3f, %.3f] \n', round(t_ci(1,1),3), round(t_ci(1,2),3));
+fprintf('1-sigma CI: [%.3f, %.3f] \n', round(t_ci(2,1),3), round(t_ci(2,2),3));
+fprintf('Mean: [%.3f] \n', round(t_mean,3));
+fprintf('Median: [%.3f] \n', round(t_median,3));
 
 fprintf('Inheritance (atoms/g) \n');
-fprintf('95CI: [%d, %d]\n', round(Cinh_ci(1,1)), round(Cinh_ci(1,2)));
-fprintf('68CI: [%d, %d]\n', round(Cinh_ci(2,1)), round(Cinh_ci(2,2)));
+fprintf('2-sigma CI: [%d, %d]\n', round(Cinh_ci(1,1)), round(Cinh_ci(1,2)));
+fprintf('1-sigma CI: [%d, %d]\n', round(Cinh_ci(2,1)), round(Cinh_ci(2,2)));
+fprintf('Mean: [%d] \n', round(Cinh_mean));
+fprintf('Median: [%d] \n', round(Cinh_median));
 
 
 
@@ -259,7 +271,7 @@ hold off
 subplot(1,2,2);
 histogram(C_inh);
 hold on
-xlabel({'Inherited concentration';'prior to loess accumulation (atoms/g)'},'Fontsize',20);
+xlabel({'Inherited concentration (atoms/g)'},'Fontsize',20);
 ylabel('Frequency','Fontsize',20);
 Cinh_y=get(gca,'ylim');
 plot([Cinh_ci(1,1) Cinh_ci(1,1)],Cinh_y,'r','LineWidth',2);
@@ -354,7 +366,7 @@ y_max=y_mean+y_sd;
 
 zmodel=(1:max(z_mean)+10)';
 for j=1:K
-    i=round(P*rand(1));
+    i=round((P-1)*rand(1))+1;
     Pzn=P0n(i)*exp(-density(i)*zmodel/Lan(i));
     Pzm1=P0m1(i)*exp(-density(i)*zmodel/Lam1(i));
     Pzm2=P0m2(i)*exp(-density(i)*zmodel/Lam2(i));
