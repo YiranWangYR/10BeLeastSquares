@@ -270,9 +270,16 @@ y1=Re(:,2);
 TeN=Re(:,1);
 y2=TeN.*x2+y1;
 
+Pzn_sim=P0nD(1)*exp(-densityD(1)*z_mean/La(1));
+Pzm1_sim=P0m1D(1)*exp(-densityD(1)*z_mean/La(2));
+Pzm2_sim=P0m2D(1)*exp(-densityD(1)*z_mean/La(3));
+gm1_sim=exp(-0.5*(densityD(1)*ErodedD(1)/La(2)-densityD(1)*ErodedD(1)/La(1))+(1/24)*((densityD(1)*ErodedD(1)/La(2))^2-(densityD(1)*ErodedD(1)/La(1))^2));
+gm2_sim=exp(-0.5*(densityD(1)*ErodedD(1)/La(3)-densityD(1)*ErodedD(1)/La(1))+(1/24)*((densityD(1)*ErodedD(1)/La(3))^2-(densityD(1)*ErodedD(1)/La(1))^2));
+
+
 % error of production rate at depth
 Pz_err=sqrt(P0nD(2)^2+(densityD(1)*z_sd/LanD(1)).^2+(densityD(2)*z_mean/LanD(1)).^2+(LanD(2)*densityD(1)*z_mean/LanD(1)^2).^2).*(P0nD(1)*exp(-densityD(1)*z_mean/LanD(1)));
-
+x_sim=Pzn_sim+Pzm1_sim*gm1_sim+Pzm2_sim*gm2_sim;
 
 figure(1)
 subplot(2,2,1)
@@ -287,7 +294,7 @@ for j=1:K
 end
 
 %data
-errorbar(x,y_mean,y_sd,y_sd,Pz_err,Pz_err,'bo','linewidth',1.5);%vertical errorbar
+errorbar(x_sim,y_mean,y_sd,y_sd,Pz_err,Pz_err,'bo','linewidth',1.5);%vertical errorbar
 %{
 y_lim=get(gca,'ylim');
 y_l=y_lim(1,2)/100;
