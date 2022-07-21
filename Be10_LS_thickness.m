@@ -1,7 +1,7 @@
 % version 1.0 (wrote and tested on matlab 2014)
 % Code to apply a least squares method exposure age estimation from
 % cosmogenic nuclide depth-profiles. Detailed explaination can be find in:
-% Wang and Oskin (202x)
+% Wang and Oskin (2022)
 % This code estimate age with eroded thickness D, muogenic production included.
 % A Monte Carlo simulation is applied to find the distribution of age and
 % inheritance. Erosion may be zero.
@@ -11,8 +11,10 @@
 
 % If you encounter any problem, please contact: yrwwang@ucdavis.edu
 
-clear all;
+% How to use: please edit the values between line 26-60, following
+% instructions 
 
+clear all;
 %=============================Inputs==============================
 % -------Main variables---------
 % !! Format !!
@@ -30,7 +32,7 @@ Lam1D=[1500,0,1]; %negative muon attenuation length; g/cm2
 Lam2D=[5300,0,1]; %fast muon attenuation length
 ErodedD=[40, 10, 1]; % cm, eroded thickness. No erosion when the first and second terms ==0
 % When there is no erosion, this code returns results with muogenic
-% production fully incorperated, and no approximation. (Eq.3-5 of Wang and Oskin (202x)
+% production fully incorperated. (Eq.3-5 of Wang and Oskin (2022)
 %-----------
 
 % load sample data. Change the file name accordingly
