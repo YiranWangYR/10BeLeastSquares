@@ -8,6 +8,10 @@
 
 % If you encounter any problem, please contact: yrwwang@ucdavis.edu
 
+% How to use this code:
+% Please edit the values betwenn line 25-57, following the instructions
+% below
+
 clear all;
 
 %=============================Inputs==============================
@@ -27,7 +31,7 @@ Lam1R=[1500,0,1]; %negative muon attenuation length; g/cm2
 Lam2R=[4300,0,1]; %fast muon attenuation length
 rateR=[0.0003, 0.00005, 1]; % cm, erosion rate. No erosion when the first and second terms ==0
 % When there is no erosion, this code returns results with muogenic
-% production fully incorperated, and no approximation. (Eq.3-5 of Wang and Oskin (202x)
+% production fully incorperated. (Eq.3-5 of Wang and Oskin (202x)
 %--------------
 
 % load sample data. Change the file name accordingly
@@ -37,7 +41,7 @@ D1=load('../Be10 code/data/T2_Fin.txt');
 % 2nd column: standard deviation of sample depth, cm
 % 3rd column: sample concentration, atoms/g
 % 4th column: standard deviation of C, atoms/g (!!!put in actual value here, 
-% do not use the percentage format)
+% do not use the percentage form)
 
 % distribution type of samples
 z_dis=1;    %distribution type of sample depth. 1=normal distribution; 0=uniform distribution
