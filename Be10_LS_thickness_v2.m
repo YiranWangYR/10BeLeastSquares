@@ -1,7 +1,7 @@
-% version 2.0
+% version 2.0, written and tested on matlab2020b
 % Code to apply a least squares linear regression method of exposure age 
 % estimation from cosmogenic nuclide depth-profiles. 
-% Detailed explaination can be find in: Wang and Oskin (202x)
+% Detailed explaination can be find in: Wang and Oskin (2022)
 % This code estimate age with eroded thickness(denudation depth) D, muogenic production included.
 % A Monte Carlo simulation is applied to find the distribution of age and
 % inheritance. Erosion may be zero.
@@ -38,7 +38,7 @@ Lam1D=[1500,0,1]; %negative muon attenuation length; g/cm2
 Lam2D=[4300,0,1]; %fast muon attenuation length
 ErodedD=[40, 10, 1]; % cm, eroded thickness. No erosion when the first and second terms ==0
 % When there is no erosion, this code returns results with muogenic
-% production fully incorperated, and no approximation. (Eq.3-5 of Wang and Oskin (202x)
+% production fully incorperated. (Eq.3-5 of Wang and Oskin (2022)
 %-----------
 
 % load sample data. Change the file name accordingly
@@ -201,7 +201,7 @@ for i=1:P
 end
 
 %==========================Save results====================
-%xlswrite(filename,Re); %results saved as excel, please change file name.
+xlswrite(filename,Re); %results saved as excel, please change file name.
 %first column: Te value (effective exposure age,yr)
 %second column: Cinh (inhereted concentration in samples)
 %third column: t(exposure age before loess),
