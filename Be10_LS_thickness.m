@@ -171,8 +171,7 @@ for i=1:P
     G(:,1)=1;
     G(:,2)=x;
     [Up, Lp, Vp] = svd(G);  % singular value decomposition
-    Inv = Vp/Lp*Up';
-    mest = Inv*y(:,i);  % inversion results
+    mest = lsqnonneg(G, y(:,i));
     Te=mest(2,1);  % effective exposure age of nucleon (age without decay)
     C_inh=mest(1,1);  % inherited concentration
     if D==0
