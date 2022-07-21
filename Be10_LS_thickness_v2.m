@@ -7,7 +7,7 @@
 % inheritance. Erosion may be zero.
 
 % Update notes on 2.0: 
-% 1. This version is tested on matlab2020, and may not work on older versions.
+% 1. This version is tested on matlab2020b, and may not work on older versions.
 % Version 1.0 is compatible with matlab 2014, no essential difference
 % between these two versions.
 % 2. The Newton method function has been integrated into this script.
@@ -15,7 +15,7 @@
 
 % If you encounter any problem, please contact: yrwwang@ucdavis.edu
 
-
+% How to use this code:
 % Please edit the values betwenn line 24-68, following the instructions
 % below
 
