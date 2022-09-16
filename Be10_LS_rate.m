@@ -29,7 +29,7 @@ densityR=[2,0.2,1]; %g/cm3, sediment density
 LanR=[160,0,1]; % nucleon spallation attenuation length; g/cm2
 Lam1R=[1500,0,1]; %negative muon attenuation length; g/cm2
 Lam2R=[4300,0,1]; %fast muon attenuation length
-rateR=[0.0003, 0.00005, 1]; % cm, erosion rate. No erosion when the first and second terms ==0
+rateR=[0.0003, 0.00005, 1]; % cm/yr, erosion rate. No erosion when the first and second terms ==0
 % When there is no erosion, this code returns results with muogenic
 % production fully incorperated. (Eq.3-5 of Wang and Oskin (202x)
 %--------------
