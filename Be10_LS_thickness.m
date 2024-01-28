@@ -366,7 +366,7 @@ y_lim=get(gca,'ylim');
 y_l=y_lim(1,2)/100;
 %this plot the horizontal errorbar. Newer versions of matlab can simplify
 %this step
-for i=1:6
+for i=1:N
     plot([x(i)-Pz_err(i),x(i)+Pz_err(i)],[y_mean(i),y_mean(i)],'b','linewidth',1.5);
     plot([x(i)-Pz_err(i),x(i)-Pz_err(i)],[y_mean(i)-y_l,y_mean(i)+y_l],'b','linewidth',1.5);
     plot([x(i)+Pz_err(i),x(i)+Pz_err(i)],[y_mean(i)-y_l,y_mean(i)+y_l],'b','linewidth',1.5);
